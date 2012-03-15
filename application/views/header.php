@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>bstruct.com</title>
+	<link rel="shortcut icon" href="<?php echo site_url('assets/images/favicon.ico'); ?>" />
 	<link href="https://fonts.googleapis.com/css?family=Lobster|Reenie+Beanie&subset=latin" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo site_url('styles/default.css'); ?>" rel="stylesheet" type="text/css" media="all" />
 	<!--[if IE]><link href="<?php echo site_url('styles/default.ie.css'); ?>" rel="stylesheet" type="text/css" media="all" /><![endif]-->
