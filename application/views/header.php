@@ -7,8 +7,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Lobster|Reenie+Beanie&subset=latin" rel="stylesheet" type="text/css" media="all" />
 	<link href="<?php echo site_url('styles/default.css'); ?>" rel="stylesheet" type="text/css" media="all" />
 	<!--[if IE]><link href="<?php echo site_url('styles/default.ie.css'); ?>" rel="stylesheet" type="text/css" media="all" /><![endif]-->
-	<script src="<?php echo site_url('scripts/jquery.js'); ?>" type="text/javascript" charset="utf-8"></script>
-	<script src="<?php echo site_url('scripts/jqueryui.js'); ?>" type="text/javascript" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="<?php echo site_url('scripts/jquery.json.js'); ?>" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript"> var ROOT = '<?php echo site_url(); ?>'; </script>
 	<script src="<?php echo site_url('scripts/default.js'); ?>" type="text/javascript" charset="utf-8"></script>
