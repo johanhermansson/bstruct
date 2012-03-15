@@ -432,8 +432,9 @@ jQuery(function($) {
 	$('.dash.note textarea').live('keyup', function(e) {
 	
 		var
-		number = $(this).val().length,
-		counter = $(this).siblings('.counter');
+		dash = $(this).parents('.dash'),
+		counter = $('.counter', dash),
+		number = $(this).val().length;
 		
 		if(number > noteMaxLength)
 		counter.addClass('full');
