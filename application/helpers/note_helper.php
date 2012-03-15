@@ -57,7 +57,7 @@ function note_edit($note = null)
 		
 		<a href="#note_save_<?php echo $note->id; ?>" class="save">Save note</a>
 		
-		<span class="counter<?php if(strlen($note->note_content) > 160) echo ' full'; ?>"><?php echo strlen($note->note_content); ?></span>
+		<span class="counter<?php if(strlen($note->note_content) > get_option('max_note_length')) echo ' full'; ?>"><?php echo strlen($note->note_content); ?></span>
 	
 	</div>
 

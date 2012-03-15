@@ -435,7 +435,7 @@ jQuery(function($) {
 		number = $(this).val().length,
 		counter = $(this).siblings('.counter');
 		
-		if(number > 160)
+		if(number > noteMaxLength)
 		counter.addClass('full');
 		else
 		counter.removeClass('full');
@@ -663,7 +663,10 @@ jQuery(function($) {
 	
 	$('.dash.struct .input').live('keyup', function(e) {
 		if(e.keyCode == 13)
-		$(this).parents('.item').children('.save').click();
+		{
+			var item = $(this).parents('.item');
+			$('.save', item).click();
+		}
 	});
 	
 	$('.dash.struct .save').live('click', function() {

@@ -10,7 +10,10 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="<?php echo site_url('scripts/jquery.json.js'); ?>" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript"> var ROOT = '<?php echo site_url(); ?>'; </script>
+	<script type="text/javascript">
+		var ROOT = '<?php echo site_url(); ?>',
+		var noteMaxLength = <?php echo get_option('max_note_length'); ?>;
+	</script>
 	<script src="<?php echo site_url('scripts/default.js'); ?>" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>

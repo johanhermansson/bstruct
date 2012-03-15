@@ -71,7 +71,7 @@ class Note extends CI_Controller {
 		$note_content = strip_tags($note_content);
 		$note_content = trim($note_content);
 		
-		$note_content = substr($note_content, 0, 160);
+		$note_content = substr($note_content, 0, get_option('max_note_length'));
 		
 		if($note_id > 0)
 		{
