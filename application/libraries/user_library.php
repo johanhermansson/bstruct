@@ -136,7 +136,7 @@ class User_library {
 				
 				$sent = $this->CI->email->send();
 				
-				echo '<pre>'; print_r($this->CI->email->print_debugger()); echo '</pre>'; die();
+				//echo '<pre>'; print_r($this->CI->email->print_debugger()); echo '</pre>'; die();
 
 				return $sent;
 			}
