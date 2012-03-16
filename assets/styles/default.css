@@ -228,7 +228,7 @@ div.dash {
 /* Structs */
 .dash.struct { position: absolute; background-color: #e2bb9e; width: 440px; top: 0px; left: 0px; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; }
 .dash.struct .handle { height: 40px; -webkit-border-top-left-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; border-top-left-radius: 4px; border-top-right-radius: 4px; }
-.dash.struct .handle:hover { background-color: #a1e5e6; }
+.dash.struct .handle:hover { background-color: #dbb395; }
 
 .dash.struct .options { clear: left; padding-top: 30px; margin-left: 5px; visibility: hidden; }
 .dash.struct:hover .options { visibility: visible; }
@@ -244,7 +244,7 @@ div.dash {
 .dash.struct .item .wrap { height: 1.21em; }
 
 .dash.struct .item { position: relative; background: transparent url('/assets/images/struct_rows.png') repeat left 0px; }
-.dash.struct .item:hover { background-color: #a1e5e6; }
+.dash.struct .item:hover { background-color: #dbb395; }
 .dash.struct .item.header:hover { background: transparent url('/assets/images/struct_rows.png') repeat left 0px; }
 /*.dash.struct .item.empty:hover .wrap { background-color: transparent; }*/
 
