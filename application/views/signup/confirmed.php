@@ -4,7 +4,7 @@
 
 	<div class="box inner">
 
-		<h1>You're account has been activated.</h1>
+		<h1>Your account has been activated.</h1>
 	
 		<p>It's time to <?php echo anchor('', 'sign in'); ?> with your credentials and start your more structured life!</p>
 
