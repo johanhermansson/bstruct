@@ -31,8 +31,19 @@ $lang['note_prev_page'] = 'Föregående';
 $lang['struct_item_add'] 				= 'Ny rad';
 $lang['struct_item_edit'] 				= 'Ändra';
 $lang['struct_item_save'] 				= 'Spara';
+
 $lang['struct_item_today'] 				= 'Idag';
 $lang['struct_item_yesterday'] 			= 'Igår';
+$lang['struct_item_days'] 				= 'Några dagar sedan';
+$lang['struct_item_week'] 				= 'En vecka sedan';
+$lang['struct_item_overweek'] 			= 'Över en vecka sedan';
+$lang['struct_item_weeks'] 				= 'Flera veckor sedan';
+$lang['struct_item_month'] 				= 'En månad sedan';
+$lang['struct_item_overmonth'] 			= 'Över en månad sedan';
+$lang['struct_item_months'] 			= 'Flera månader sedan';
+$lang['struct_item_year'] 				= 'Ett år sedan';
+$lang['struct_item_years'] 				= 'Längesedan';
+
 $lang['struct_header_edit'] 			= 'Ändra';
 $lang['struct_header_save'] 			= 'Spara';
 $lang['struct_remove'] 					= 'Ta bort struct';

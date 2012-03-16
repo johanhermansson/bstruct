@@ -91,7 +91,7 @@ function struct_item($item = null)
 				<?php if($item_id === 'new' || $item->level_time < (time() - strtotime($item_updated))): ?><input type="checkbox" class="checkbox" /><?php endif; ?>
 				<span class="wrap">
 					<span class="title"><?php echo $item_title; ?></span>
-					<span class="updated"><?php echo struct_parse_date($item_updated); ?></span>
+					<span class="updated" title="<?php echo $item_updated ? date('Y/m/d', strtotime($item_updated)) : ''; ?>"><?php echo struct_parse_date($item_updated); ?></span>
 				</span>
 				<a href="#struct_item_edit_<?php echo $item_id; ?>" class="edit"><?php echo lang('struct_item_edit'); ?></a>
 			</div>
@@ -148,12 +148,38 @@ function struct_parse_date($struct_date)
 	if($struct_date)
 	{
 		$time = strtotime($struct_date);
-	
+		
+		// Today
 		if(date('Y-m-d', $time) == date('Y-m-d')) return lang('struct_item_today');
 		
-		if( date('Y-m-d', $time) == date('Y-m-d', strtotime('-1 day')) ) return lang('struct_item_yesterday');
+		// Yesterday
+		if(date('Y-m-d', $time) == date('Y-m-d', strtotime('-1 day')) ) return lang('struct_item_yesterday');
 		
-		return date('Y/m/d', $time);
+		// A few days ago
+		if($time > strtotime('-1 week')) return lang('struct_item_days');
+		
+		// A week ago
+		if($time < strtotime('-1 week')+259200 AND $time > strtotime('-1 week')-259200) return lang('struct_item_week');
+		
+		// Over a week ago
+		if($time > strtotime('-2 week')) return lang('struct_item_overweek');
+		
+		// A few weeks ago
+		if($time > strtotime('-4 week')) return lang('struct_item_weeks');
+		
+		// A month ago
+		if($time < strtotime('-1 month')+604800 AND $time > strtotime('-1 month')-604800) return lang('struct_item_month');
+		
+		// Over a month ago
+		if($time > strtotime('-3 month')) return lang('struct_item_overmonth');
+		
+		// A few months ago
+		if($time > strtotime('-1 year +3 month')) return lang('struct_item_months');
+		
+		// A year ago
+		if($time < strtotime('-1 year')+7889231 AND $time > strtotime('-1 year')-7889231) return lang('struct_item_year');
+		
+		return lang('struct_item_years');
 	}
 	
 	return '-';

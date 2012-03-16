@@ -32,8 +32,19 @@ $lang['note_prev_page'] = 'Prev';
 $lang['struct_item_add'] 				= 'Add item';
 $lang['struct_item_edit'] 				= 'Edit';
 $lang['struct_item_save'] 				= 'Save';
+
 $lang['struct_item_today'] 				= 'Today';
 $lang['struct_item_yesterday'] 			= 'Yesterday';
+$lang['struct_item_days'] 				= 'Few days ago';
+$lang['struct_item_week'] 				= 'A week ago';
+$lang['struct_item_overweek'] 			= 'Over a week ago';
+$lang['struct_item_weeks'] 				= 'Weeks ago';
+$lang['struct_item_month'] 				= 'A month ago';
+$lang['struct_item_overmonth'] 			= 'Over a month ago';
+$lang['struct_item_months'] 			= 'Months ago';
+$lang['struct_item_year'] 				= 'A year ago';
+$lang['struct_item_years'] 				= 'A long time ago';
+
 $lang['struct_header_edit'] 			= 'Edit';
 $lang['struct_header_save'] 			= 'Save';
 $lang['struct_remove'] 					= 'Remove struct';
