@@ -378,9 +378,9 @@ jQuery(function($) {
 		var 
 		dash = $(this).parents('.dash'),
 		note_id = dash.attr('id'),
-		options = dash.children('.options');
+		options = $('.options', dash);
 		
-		options.children('.edit').click();
+		$('.edit', options).click();
 		
 	});
 	
@@ -423,7 +423,7 @@ jQuery(function($) {
 		
 		var 
 		dash = $(this).parents('.dash'),
-		content = dash.children('.content');
+		content = $('.content', dash);
 		
 		$('.save', content).click();
 		
@@ -695,7 +695,7 @@ jQuery(function($) {
     		item.replaceWith(html);
     		
     		if((type == 'new' && value) || (type == 'header' && value.length > 0 && items.length < 1))
-    		dash.children('.add').click();
+    		$('.add', dash).click();
     	
     	});
 	});
@@ -704,7 +704,7 @@ jQuery(function($) {
 		var 
 		dash = $(this).parents('.dash'),
 		item = $(this).parents('.item'),
-		items = dash.children('.content'),
+		content = $('.content', dash),
 		item_id = item.attr('id'),
 		data = { 
 			'id': item_id 
