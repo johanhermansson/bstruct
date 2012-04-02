@@ -654,7 +654,13 @@ jQuery(function($) {
 			{
 				item.replaceWith(html);
 				
-				$('#'+id).find('.input').select();
+				var input = $('.input', $('#'+id));
+				input.select();
+				
+				if(type == 'header')
+				{
+					input.blur(structInputBlur);
+				}
 			}
 		
 		});
@@ -715,6 +721,10 @@ jQuery(function($) {
 			items.append(html);
 		});
 	});
+	
+	var structInputBlur = function(){
+		$('.save', $(this).parents('.dash')).click();
+	}
 	
 	// Remove struct type
 	$('.dash.struct .remove').live('click', function() {

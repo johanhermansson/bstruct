@@ -34,15 +34,17 @@ class Item extends CI_Controller {
 					
 					$title = substr($title, 0, 25);
 					
-					if($this->struct_model->update_struct($id, array('type_title' => $title)) == TRUE)
+					if($title)
 					{
-						$struct = $this->struct_model->get_struct($id);
-						
-						if($struct)
-						{
-							struct_header($struct);
-						}
+						$this->struct_model->update_struct($id, array('type_title' => $title));
 					}
+					
+					$struct = $this->struct_model->get_struct($id);
+					
+					if($struct)
+    				{
+    					struct_header($struct);
+    				}
 			
 				break;
 			

@@ -60,7 +60,7 @@ function struct_header_edit($struct = null)
 
 			<div id="struct_title_<?php echo $struct->id; ?>" class="item header handle">
 				<span class="wrap">
-					<span class="title"><input name="struct_title_input_<?php echo $struct->id; ?>" value="<?php echo $struct->type_title; ?>" class="input" /></span>
+					<span class="title"><input name="struct_title_input_<?php echo $struct->id; ?>" value="<?php echo $struct->type_title; ?>" class="input" placeholder="<?php echo lang('struct_placeholder_header'); ?>" /></span>
 				</span>
 				<a href="#struct_item_edit_<?php echo $struct->id; ?>" class="save"><?php echo lang('struct_header_save'); ?></a>
 			</div>
@@ -125,7 +125,7 @@ function struct_item_edit($item = null)
 
 			<div id="struct_item_<?php echo $item_id; ?>" class="item<?php if($item_id == 'new') echo ' new'; ?>">
 				<span class="wrap">
-					<span class="title"><input name="struct_item_input_<?php echo $item_id; ?>" type="text" value="<?php echo $item_title; ?>" class="input" /></span>
+					<span class="title"><input name="struct_item_input_<?php echo $item_id; ?>" type="text" value="<?php echo $item_title; ?>" class="input" placeholder="<?php echo lang('struct_placeholder_item'); ?>" /></span>
 					<?php if($levels): ?>
 					<span class="updated">
 						<select name="struct_item_select_<?php echo $item_id; ?>" class="select">
