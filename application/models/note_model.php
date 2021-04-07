@@ -30,7 +30,7 @@ class Note_model extends CI_Model {
 	 */
 	function get_notes($data = '')
 	{
-		parse_str($data);
+		// parse_str( $data );
 		
 		$this->db
 			->from('notes')

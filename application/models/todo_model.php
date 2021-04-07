@@ -33,7 +33,7 @@ class Todo_model extends CI_Model {
 	 */
 	function get_todos($data = '')
 	{
-		parse_str($data);
+		// parse_str($data);
 
 		$query = $this->db
 			->from('todo_lists')
@@ -201,7 +201,9 @@ class Todo_model extends CI_Model {
 	 */
 	function get_items($data = '')
 	{
-		parse_str($data);
+		parse_str( $data, $args );
+
+		extract( $args );
 		
 		if(!isset($list)) $list = 0;
 		

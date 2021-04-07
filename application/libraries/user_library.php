@@ -123,22 +123,40 @@ class User_library {
 			
 			if($user !== FALSE)
 			{
-				$this->CI->load->library('email');
-	
-				$this->CI->email->from('noreply@bstruct.com');
-				$this->CI->email->to($user->email);
+				$url = 'https://api.sendgrid.com/';
+				$sendgrid_apikey = 'REDACTED_SENDGRID_API_KEY';
 
-				$this->CI->email->subject('bstruct.com | Confirmation');
-				
 				$confirm_href = site_url('signup/confirm/' . md5(SALT . '_bstruct_confirmation_' . $user->id));
 				
-				$this->CI->email->message(sprintf(lang('confirmation_email'), $confirm_href));
+				$params = array(
+					'to'        => $user->email,
+					'subject'   => 'bstruct.com | Confirmation',
+					'text'      => sprintf(lang('confirmation_email'), $confirm_href),
+					'from'      => 'noreply@sumway.dev',
+				);
 				
-				$sent = $this->CI->email->send();
+				$request =  $url.'api/mail.send.json';
 				
-				//echo '<pre>'; print_r($this->CI->email->print_debugger()); echo '</pre>'; die();
+				// Generate curl request
+				$session = curl_init($request);
+				// Tell curl to use HTTP POST
+				curl_setopt ($session, CURLOPT_POST, true);
+				// Tell curl that this is the body of the POST
+				curl_setopt ($session, CURLOPT_POSTFIELDS, $params);
+				curl_setopt($session, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $sendgrid_apikey));
+				// Tell curl not to return headers, but do return the response
+				curl_setopt($session, CURLOPT_HEADER, false);
+				// Tell PHP not to use SSLv3 (instead opting for TLS)
+				curl_setopt($session, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+				curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+				
+				// obtain response
+				$response = curl_exec($session);
+				curl_close($session);
 
-				return $sent;
+				$response = json_decode( $response, true );
+
+				return is_array( $response ) and $response['message'] === 'success';
 			}
 		}
 		

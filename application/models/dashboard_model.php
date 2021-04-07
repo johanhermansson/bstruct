@@ -28,8 +28,8 @@ class Dashboard_model extends CI_Model {
 	 */
 	function get_dashboards($data = '')
 	{
-		parse_str($data);
-		
+		// parse_str($data);
+
 		$query = $this->db
 			->from('dashboards')
 			->where('user_id', $this->user_id)

@@ -97,7 +97,7 @@ class User_model extends CI_Model {
 	 */
 	function confirm_user($hash = '')
 	{
-		$sql = "SELECT * FROM users WHERE MD5(CONCAT('" . SALT . "', '_bstruct_confirmation_', id)) = '{$hash}' AND confirmed <> 1 LIMIT 1";
+		$sql = "SELECT * FROM users WHERE MD5(CONCAT('" . SALT . "', '_bstruct_confirmation_', id)) = '{$hash}' AND confirmed IS NULL LIMIT 1";
 	
 		$query = $this->db->query($sql);
 		

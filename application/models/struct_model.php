@@ -30,7 +30,7 @@ class Struct_model extends CI_Model {
 	 */
 	function get_structs($data = '') 
 	{
-		parse_str($data);
+		// parse_str($data);
 	
 		$query = $this->db
 			->from('struct_types')
@@ -192,7 +192,9 @@ class Struct_model extends CI_Model {
 	 */
 	function get_items($data = '') 
 	{
-		parse_str($data);
+		parse_str( $data, $args );
+
+		extract( $args );
 		
 		$total = 0;
 		$result = array();
