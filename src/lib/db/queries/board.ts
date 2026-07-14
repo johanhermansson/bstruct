@@ -99,7 +99,10 @@ export async function getBoardData(
           levelTitle: structLevels.title,
           levelSeconds: structLevels.levelSeconds,
           lastDoneAt: structItems.lastDoneAt,
-          urgency: sql<number>`extract(epoch from (now() - ${structItems.lastDoneAt})) / ${structLevels.levelSeconds}`,
+          // .as() is required: the ORDER BY below references the alias.
+          urgency: sql<number>`extract(epoch from (now() - ${structItems.lastDoneAt})) / ${structLevels.levelSeconds}`.as(
+            "urgency",
+          ),
         })
         .from(structItems)
         .innerJoin(structLevels, eq(structLevels.id, structItems.levelId))
