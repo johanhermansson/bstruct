@@ -41,12 +41,12 @@ boards into "Due now" and "Coming up", sorted by the same ratio.
    the Neon console.
 2. Copy `.env.example` to `.env.local` (Next.js) and `.env` (drizzle-kit) and
    fill in the four variables.
-3. Install and migrate:
+3. Install and set up the database:
 
    ```bash
    npm install
-   npm run db:migrate                                   # applies drizzle/ against DATABASE_URL_UNPOOLED
-   psql "$DATABASE_URL_UNPOOLED" -f drizzle/seed.sql    # seeds the six recurrence levels (idempotent)
+   npm run db:push   # syncs src/lib/db/schema.ts to the database (drizzle-kit push)
+   npm run db:seed   # seeds the six recurrence levels (idempotent)
    ```
 
 4. `npm run dev` and open http://localhost:3000 — you'll be redirected to
@@ -64,13 +64,18 @@ app never relies on it (every query is scoped by `user_id`).
    a database branch per preview deployment.
 3. Add `NEON_AUTH_BASE_URL` and `NEON_AUTH_COOKIE_SECRET` (≥ 32 random chars)
    to the project's environment variables.
-4. Run migrations against production **manually or from CI** — never during
-   `next build` (preview builds would race each other on a shared database):
+4. That's it — `vercel.json` points the build at `npm run vercel-build`, which
+   runs `drizzle-kit push`, the recurrence-level seed, `tsc --noEmit`, and
+   `next build`, so every deploy syncs its own database first.
 
-   ```bash
-   DATABASE_URL_UNPOOLED=... npm run db:migrate
-   psql "$DATABASE_URL_UNPOOLED" -f drizzle/seed.sql
-   ```
+Two caveats about schema-push-in-build:
+
+- `drizzle-kit push` refuses **destructive** changes without `--force` and the
+  build is non-interactive — apply column drops/renames manually with
+  `npm run db:push` before deploying that change.
+- If several preview deployments share one database they will all push
+  against it; enable the Neon integration's **database branch per preview**
+  so each preview gets its own copy.
 
 ## Checks
 
@@ -95,7 +100,7 @@ src/lib/domain/                   urgency + fuzzy-date logic (unit-tested)
 src/components/board/             free-drag board, store, position buffer
 src/components/stack/             mobile stacked view of the same widgets
 src/components/widgets/           Note / Todo / Struct cards
-drizzle/                          SQL migrations + seed.sql
+drizzle/                          seed.sql + optional Neon Auth FKs (schema is pushed from schema.ts)
 ```
 
 ## Migration notes (from the legacy PHP app)

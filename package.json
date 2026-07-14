@@ -9,9 +9,10 @@
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:push": "drizzle-kit push",
+    "db:seed": "node scripts/seed.mjs",
+    "vercel-build": "drizzle-kit push && node scripts/seed.mjs && tsc --noEmit && next build"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
