@@ -11,6 +11,7 @@ import { BoardView } from "./board-view";
 import { StackView } from "@/components/stack/stack-view";
 import { useMedia } from "@/hooks/use-media";
 import { createNote } from "@/lib/actions/notes";
+import { runAction } from "@/lib/actions/run-action";
 import { createStruct } from "@/lib/actions/structs";
 import { createTodoList } from "@/lib/actions/todos";
 import type { BoardData, StructLevelDTO } from "@/lib/types";
@@ -62,6 +63,7 @@ function Toolbar({ levels }: { levels: StructLevelDTO[] }) {
   const dispatch = useBoardDispatch();
   const [structTitle, setStructTitle] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const widgetCount =
     state.notes.length + state.todoLists.length + state.structs.length;
@@ -78,9 +80,14 @@ function Toolbar({ levels }: { levels: StructLevelDTO[] }) {
 
   const addNote = async () => {
     setBusy(true);
+    setError(null);
     try {
-      const note = await createNote(state.boardId, spawnPosition);
+      const note = await runAction(() =>
+        createNote(state.boardId, spawnPosition),
+      );
       dispatch({ type: "note/add", note });
+    } catch {
+      setError("Couldn’t add the note. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -88,9 +95,14 @@ function Toolbar({ levels }: { levels: StructLevelDTO[] }) {
 
   const addTodo = async () => {
     setBusy(true);
+    setError(null);
     try {
-      const list = await createTodoList(state.boardId, "Todo", spawnPosition);
+      const list = await runAction(() =>
+        createTodoList(state.boardId, "Todo", spawnPosition),
+      );
       dispatch({ type: "todo/add", list });
+    } catch {
+      setError("Couldn’t add the todo list. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -98,10 +110,15 @@ function Toolbar({ levels }: { levels: StructLevelDTO[] }) {
 
   const addStruct = async (title: string) => {
     setBusy(true);
+    setError(null);
     try {
-      const struct = await createStruct(state.boardId, title, spawnPosition);
+      const struct = await runAction(() =>
+        createStruct(state.boardId, title, spawnPosition),
+      );
       dispatch({ type: "struct/add", struct });
       setStructTitle(null);
+    } catch {
+      setError("Couldn’t add the struct. Please try again.");
     } finally {
       setBusy(false);
     }
@@ -158,6 +175,12 @@ function Toolbar({ levels }: { levels: StructLevelDTO[] }) {
             Cancel
           </ToolbarButton>
         </form>
+      )}
+
+      {error && (
+        <span role="alert" className="text-xs font-medium text-urgent">
+          {error}
+        </span>
       )}
     </div>
   );

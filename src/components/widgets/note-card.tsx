@@ -5,6 +5,7 @@ import { useState } from "react";
 import { WidgetChrome } from "./widget-chrome";
 import { useBoardDispatch } from "@/components/board/board-store";
 import { deleteNote, setNoteColor, updateNoteContent } from "@/lib/actions/notes";
+import { runAction } from "@/lib/actions/run-action";
 import type { NoteDTO, WidgetColor } from "@/lib/types";
 
 const MAX_LENGTH = 5_000;
@@ -26,17 +27,17 @@ export function NoteCard({
     setEditing(false);
     if (draft === note.content) return;
     dispatch({ type: "note/update", id: note.id, patch: { content: draft } });
-    void updateNoteContent(note.id, draft);
+    void runAction(() => updateNoteContent(note.id, draft));
   };
 
   const changeColor = (color: WidgetColor) => {
     dispatch({ type: "note/update", id: note.id, patch: { color } });
-    void setNoteColor(note.id, color);
+    void runAction(() => setNoteColor(note.id, color));
   };
 
   const remove = () => {
     dispatch({ type: "note/remove", id: note.id });
-    void deleteNote(note.id);
+    void runAction(() => deleteNote(note.id));
   };
 
   return (
