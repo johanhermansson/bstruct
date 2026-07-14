@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { WidgetChrome } from "./widget-chrome";
 import { useBoardDispatch } from "@/components/board/board-store";
+import { runAction } from "@/lib/actions/run-action";
 import {
   checkOffStructItem,
   createStructItem,
@@ -55,15 +56,15 @@ export function StructCard({
       isDragging={isDragging}
       onRename={(title) => {
         dispatch({ type: "struct/update", id: struct.id, patch: { title } });
-        void renameStruct(struct.id, title);
+        void runAction(() => renameStruct(struct.id, title));
       }}
       onColorChange={(color: WidgetColor) => {
         dispatch({ type: "struct/update", id: struct.id, patch: { color } });
-        void setStructColor(struct.id, color);
+        void runAction(() => setStructColor(struct.id, color));
       }}
       onRemove={() => {
         dispatch({ type: "struct/remove", id: struct.id });
-        void deleteStruct(struct.id);
+        void runAction(() => deleteStruct(struct.id));
       }}
       removeLabel="Remove struct"
     >
@@ -84,7 +85,9 @@ export function StructCard({
           onCancel={() => setAdding(false)}
           onSubmit={async (title, levelId) => {
             setAdding(false);
-            const item = await createStructItem(struct.id, { title, levelId });
+            const item = await runAction(() =>
+              createStructItem(struct.id, { title, levelId }),
+            );
             dispatch({ type: "struct/item-add", structId: struct.id, item });
           }}
         />
@@ -122,7 +125,7 @@ function StructItemRow({
       itemId: item.id,
       patch: { lastDoneAt: new Date().toISOString() },
     });
-    void checkOffStructItem(item.id);
+    void runAction(() => checkOffStructItem(item.id));
   };
 
   if (editing) {
@@ -135,7 +138,7 @@ function StructItemRow({
           onDelete={() => {
             setEditing(false);
             dispatch({ type: "struct/item-remove", structId, itemId: item.id });
-            void deleteStructItem(item.id);
+            void runAction(() => deleteStructItem(item.id));
           }}
           onCancel={() => setEditing(false)}
           onSubmit={(title, levelId) => {
@@ -152,7 +155,7 @@ function StructItemRow({
                 levelSeconds: level?.levelSeconds ?? item.levelSeconds,
               },
             });
-            void updateStructItem(item.id, { title, levelId });
+            void runAction(() => updateStructItem(item.id, { title, levelId }));
           }}
         />
       </li>

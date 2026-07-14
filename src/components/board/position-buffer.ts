@@ -1,6 +1,7 @@
 "use client";
 
 import { updatePositions } from "@/lib/actions/positions";
+import { runAction } from "@/lib/actions/run-action";
 import type { PositionPatch, WidgetKind } from "@/lib/types";
 
 const FLUSH_DELAY_MS = 800;
@@ -37,7 +38,9 @@ class PositionBuffer {
     this.patches.clear();
 
     try {
-      await updatePositions(batch);
+      // On an expired session runAction never settles (it navigates to
+      // sign-in), so the batch is neither re-queued nor retried forever.
+      await runAction(() => updatePositions(batch));
     } catch {
       // Re-queue so the next drag or page-hide retries the batch.
       for (const patch of batch) {

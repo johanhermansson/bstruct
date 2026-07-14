@@ -4,6 +4,7 @@ import { useOptimistic, useTransition } from "react";
 import Link from "next/link";
 
 import { stickySwatch } from "@/components/widgets/widget-chrome";
+import { runAction } from "@/lib/actions/run-action";
 import { checkOffStructItem } from "@/lib/actions/structs";
 import { dueInLabel, fuzzyLastDone } from "@/lib/domain/fuzzy-date";
 import type { UpNextItem } from "@/lib/types";
@@ -34,7 +35,7 @@ export function WhatsNextView({ items }: { items: UpNextItem[] }) {
   const checkOff = (itemId: number) => {
     startTransition(async () => {
       markDone(itemId);
-      await checkOffStructItem(itemId);
+      await runAction(() => checkOffStructItem(itemId));
     });
   };
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import { createBoard, deleteBoard, renameBoard } from "@/lib/actions/boards";
+import { runAction } from "@/lib/actions/run-action";
 import type { BoardSummary } from "@/lib/types";
 
 export function BoardSwitcher({ boards }: { boards: BoardSummary[] }) {
@@ -26,9 +27,9 @@ export function BoardSwitcher({ boards }: { boards: BoardSummary[] }) {
           setMode("idle");
           if (!title) return;
           if (isCreate) {
-            await createBoard(title);
+            await runAction(() => createBoard(title));
           } else if (active) {
-            await renameBoard(active.id, title);
+            await runAction(() => renameBoard(active.id, title));
             router.refresh();
           }
         }}
@@ -109,7 +110,7 @@ export function BoardSwitcher({ boards }: { boards: BoardSummary[] }) {
                 `Delete board “${active.title}” and everything on it?`,
               )
             ) {
-              void deleteBoard(active.id);
+              void runAction(() => deleteBoard(active.id));
             }
           }}
           className="hidden rounded-lg px-1.5 py-1.5 text-sm text-ink-muted hover:bg-surface-muted hover:text-urgent sm:block"

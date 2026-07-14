@@ -22,6 +22,7 @@ import { CSS } from "@dnd-kit/utilities";
 
 import { WidgetChrome } from "./widget-chrome";
 import { useBoardDispatch } from "@/components/board/board-store";
+import { runAction } from "@/lib/actions/run-action";
 import {
   createTodoItem,
   deleteTodoItem,
@@ -54,7 +55,7 @@ export function TodoCard({
     const title = newTitle.trim();
     if (!title) return;
     setNewTitle("");
-    const item = await createTodoItem(list.id, title);
+    const item = await runAction(() => createTodoItem(list.id, title));
     dispatch({ type: "todo/item-add", listId: list.id, item });
   };
 
@@ -70,7 +71,7 @@ export function TodoCard({
       (i) => i.id,
     );
     dispatch({ type: "todo/item-reorder", listId: list.id, orderedIds });
-    void reorderTodoItems(list.id, orderedIds);
+    void runAction(() => reorderTodoItems(list.id, orderedIds));
   };
 
   return (
@@ -82,15 +83,15 @@ export function TodoCard({
       isDragging={isDragging}
       onRename={(title) => {
         dispatch({ type: "todo/update", id: list.id, patch: { title } });
-        void renameTodoList(list.id, title);
+        void runAction(() => renameTodoList(list.id, title));
       }}
       onColorChange={(color: WidgetColor) => {
         dispatch({ type: "todo/update", id: list.id, patch: { color } });
-        void setTodoListColor(list.id, color);
+        void runAction(() => setTodoListColor(list.id, color));
       }}
       onRemove={() => {
         dispatch({ type: "todo/remove", id: list.id });
-        void deleteTodoList(list.id);
+        void runAction(() => deleteTodoList(list.id));
       }}
       removeLabel="Remove list"
     >
@@ -164,12 +165,12 @@ function SortableTodoItem({
       itemId: item.id,
       patch: { completedAt: done ? null : new Date().toISOString() },
     });
-    void toggleTodoItem(item.id, !done);
+    void runAction(() => toggleTodoItem(item.id, !done));
   };
 
   const remove = () => {
     dispatch({ type: "todo/item-remove", listId, itemId: item.id });
-    void deleteTodoItem(item.id);
+    void runAction(() => deleteTodoItem(item.id));
   };
 
   return (
